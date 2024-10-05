@@ -192,7 +192,7 @@ function copyText(text) {
 function download(text, type) {
     const blob = new Blob([text], {type: type});
     const ext = type.split('/')[1];
-    const fileName = 'download.' + ext;
+    const fileName = 'forca.' + ext;
     const downLink = document.createElement('a');
     downLink.download = fileName;
     if (webkitURL != null) {
