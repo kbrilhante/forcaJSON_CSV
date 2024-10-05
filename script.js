@@ -1,7 +1,11 @@
 function inicialize() {
     document.querySelector('#inpFile').onchange = submit;
-    document.querySelector('#txtOutputJSON').oninput = changeJSON;
-    document.querySelector('#txtOutputCSV').oninput = changeCSV;
+    document.querySelector('#txtOutputJSON').oninput = () => {
+        createCheck('btnCheckJSON', '#controlButtonsJSON', changeJSON);
+    };
+    document.querySelector('#txtOutputCSV').oninput = () => {
+        createCheck('btnCheckCSV', '#controlButtonsCSV', changeCSV);
+    };
 }
 
 function submit(event) {
@@ -23,14 +27,29 @@ function getFile(type, result) {
     setOutput(object)
 }
 
+function createCheck(id, groupId, callback){
+    let btn = document.getElementById(id);
+    if (!btn) {
+        const group = document.querySelector(groupId);
+        btn = setButton('fa-solid fa-check');
+        btn.id = id;
+        btn.onclick = callback;
+        group.prepend(btn);
+    }
+
+}
+
 function changeJSON(e) {
-    const object = handleJSON(e.target.value);
-    setOutput(object);
+    console.log('click', e)
+    // const object = handleJSON(e.target.value);
+    // setOutput(object);
 }
 
 function changeCSV(e) {
-    const object = handleCSV(e.target.value);
-    setOutput(object);
+    const aaaa = document.querySelectorAll('.btn-group')
+    console.log(aaaa)
+    // const object = handleCSV(e.target.value);
+    // setOutput(object);
 }
 
 function setOutput(object) {
@@ -60,12 +79,14 @@ function handleCSV(data) {
 }
 
 function removeDuplicates(object) {
+    // also change it all to upper case
     for (const key in object) {
         if (Object.prototype.hasOwnProperty.call(object, key)) {
             const array = object[key];
             const new_array = [];
             for (const element of array) {
-                if (!new_array.includes(element)) new_array.push(element)
+                let word = element.toUpperCase()
+                if (!new_array.includes(word)) new_array.push(word)
             }
             object[key] = new_array;
         }
