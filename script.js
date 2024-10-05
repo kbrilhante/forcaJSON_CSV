@@ -1,5 +1,7 @@
 function inicialize() {
-    document.querySelector("#inpFile").onchange = submit;
+    document.querySelector('#inpFile').onchange = submit;
+    document.querySelector('#txtOutputJSON').oninput = changeJSON;
+    document.querySelector('#txtOutputCSV').oninput = changeCSV;
 }
 
 function submit(event) {
@@ -18,13 +20,27 @@ function getFile(type, result) {
     } else if (type == 'text/csv') {
         object = handleCSV(result);
     }
+    setOutput(object)
+}
+
+function changeJSON(e) {
+    const object = handleJSON(e.target.value);
+    setOutput(object);
+}
+
+function changeCSV(e) {
+    const object = handleCSV(e.target.value);
+    setOutput(object);
+}
+
+function setOutput(object) {
     removeDuplicates(object);
-    newJSON(object, type);
-    newCSV(object, type);
+    newJSON(object);
+    newCSV(object);
 }
 
 function handleJSON(data) {
-    object = JSON.parse(data)
+    const object = JSON.parse(data);
     return object;
 }
 
@@ -57,16 +73,19 @@ function removeDuplicates(object) {
 }
 
 function newJSON(object) {
-    let strJSON = "{\n";
+    let lines = [];
+    let strJSON = '\{\n';
     for (const key in object) {
         if (Object.prototype.hasOwnProperty.call(object, key)) {
             const element = object[key];
-            strJSON += '    ' + key + ': [\n        \"';
-            strJSON += element.join('\", \"');
-            strJSON += '\"\n    ],\n';
+            let line = '    \"' + key + '\": \[\n        \"';
+            line += element.join('", "');
+            line += '\"\n    \]';
+            lines.push(line)
         }
     }
-    strJSON += '}';
+    strJSON += lines.join(',\n');
+    strJSON += '\}';
     document.querySelector('#txtOutputJSON').value = strJSON;
     buttonGroup('controlButtonsJSON', strJSON, 'application/json');
 }
