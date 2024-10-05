@@ -36,20 +36,25 @@ function createCheck(id, groupId, callback){
         btn.onclick = callback;
         group.prepend(btn);
     }
-
 }
 
-function changeJSON(e) {
-    console.log('click', e)
-    // const object = handleJSON(e.target.value);
-    // setOutput(object);
+function changeJSON() {
+    const btnCheck = document.getElementById('btnCheckJSON');
+    const data = document.getElementById('txtOutputJSON');
+    btnCheck.remove();
+    const object = handleJSON(data.value);
+    if (object) {
+        console.log(object);
+        setOutput(object);
+    }
 }
 
-function changeCSV(e) {
-    const aaaa = document.querySelectorAll('.btn-group')
-    console.log(aaaa)
-    // const object = handleCSV(e.target.value);
-    // setOutput(object);
+function changeCSV() {
+    const btnCheck = document.getElementById('btnCheckCSV');
+    const data = document.getElementById('txtOutputCSV');
+    btnCheck.remove();
+    const object = handleCSV(data.value);
+    setOutput(object);
 }
 
 function setOutput(object) {
@@ -59,33 +64,50 @@ function setOutput(object) {
 }
 
 function handleJSON(data) {
-    const object = JSON.parse(data);
-    return object;
+    try {
+        const object = JSON.parse(data);
+        return object;
+    } catch (error) {
+        console.error(error);
+        alert("Falha na conversão dos dados")
+    }
+    return false;
 }
 
 function handleCSV(data) {
     data = data.split('\n')
     const object = {};
+    const failLines = [];
     for (let i = 1; i < data.length; i++) {
-        const line = data[i].split(',');
-        if (line.length > 1) {
-            const key = line[1];
+        let line = data[i];
+        if (line) {
+            line = line.split(",");
+        }
+        if (line.length == 3) {
+            console.log(line)
+            const key = line[1].trim();
             const element = line[2];
             if (!Object.keys(object).includes(key)) object[key] = [];
             object[key].push(element);
+        } else if (line.length > 0) {
+            failLines.push(line);
         }
+    }
+    if (failLines.length) {
+        alert("Some lines were not added to csv check commas and try again")
+        console.error("These lines were not added to the file because of an error:\n" + failLines.join("\n"));
     }
     return object;
 }
 
 function removeDuplicates(object) {
-    // also change it all to upper case
+    // also change it all to upper case and trims spaces
     for (const key in object) {
         if (Object.prototype.hasOwnProperty.call(object, key)) {
             const array = object[key];
             const new_array = [];
             for (const element of array) {
-                let word = element.toUpperCase()
+                let word = element.toUpperCase().trim()
                 if (!new_array.includes(word)) new_array.push(word)
             }
             object[key] = new_array;
