@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JSON to CSV</title>
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+
+    <!-- Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.css"
+      integrity="sha512-KOWhIs2d8WrPgR4lTaFgxI35LLOp5PRki/DxQvb7mlP29YZ5iJ5v8tiLWF7JLk5nDBlgPP1gHzw96cZ77oD7zQ=="
+      crossorigin="anonymous"
+    />
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="col header">
+        <h1 class="display-1">JSON to CSV</h1>
+      </div>
+      <div id="inputFile" class="my-4">
+        <label for="inpFile" class="form-label">
+            Send File:
+        </label>
+        <input type="file" name="inpFile" id="inpFile" class="form-control col" accept="application/json, text/csv">
+      </div>
+      <div id="outputJSON" class="my-4">
+        <div class="row my-2">
+          <div class="col">
+            <label for="txtOutputJSON" class="form-label">
+                Copy the JSON from here:
+            </label>
+          </div>
+          <div class="col-auto mx-auto text-center">
+            <div id="controlButtonsJSON" class="btn-group" role="group"></div>
+          </div>
+        </div>
+        <textarea
+          name="txtOutputJSON"
+          id="txtOutputJSON"
+          class="form-control form-control-sm"
+          rows="10"
+        ></textarea>
+      </div>
+      <div id="outputCSV" class="my-4">
+        <div class="row my-2">
+          <div class="col">
+            <label for="txtOutputCSV" class="form-label">
+                Copy the CSV from here:
+            </label>
+          </div>
+          <div class="col-auto mx-auto text-center">
+            <div id="controlButtonsCSV" class="btn-group" role="group"></div>
+          </div>
+        </div>
+        <textarea
+          name="txtOutputCSV"
+          id="txtOutputCSV"
+          class="form-control form-control-sm"
+          rows="10"
+        ></textarea>
+      </div>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
