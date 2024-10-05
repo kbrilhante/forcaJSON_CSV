@@ -101,7 +101,7 @@ function newCSV(object) {
                line.push(id++);
                line.push(categoria);
                line.push(palavra)
-               lines.push(line.join(', '));
+               lines.push(line.join(','));
             }
         }
     }
