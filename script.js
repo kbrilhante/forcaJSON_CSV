@@ -134,7 +134,7 @@ function newJSON(object) {
 }
 
 function newCSV(object) {
-    const lines = ['id, categoria, palavra']
+    const lines = ['id,categoria,palavra']
     let id = 1;
     for (const categoria in object) {
         if (Object.prototype.hasOwnProperty.call(object, categoria)) {
